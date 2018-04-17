@@ -1,0 +1,124 @@
+1: 
+push regs[20]
+regs[20] = regs[16]
+regs[16] = regs[16] - 44
+push regs[24]
+memory[11244: 11280] = [115, 20, 32, 23, 2, 98, 42, 119, 121, 29, 33, 113, 112, 103, 94, 6, 0, 30, 91, 113, 125, 103, 95, 113, 123, 111, 80, 2, 119, 103, 90, 115, 9, 25, 39, 1, 5]
+push 8
+regs[0] = memory[11296] (11304)
+push regs[0]
+push 305419896
+871: call 1223
+877: regs[16] += 12
+
+# check
+if regs[0] == 870690368:
+	jnz 1188
+
+
+
+
+
+
+---------------
+init
+
+memory[11284] = 0
+memory[11284] = 0
+jmp 985
+
+---------------
+943: # increase counter
+regs[0] = memory[11284]
+regs[0] += 1
+memory[11284] = regs[0]
+
+
+985: 
+if memory[11284] < 37:
+	jnc 1173
+
+1008: 
+
+regs[8] = i
+regs[4] = memory[11244 + i]
+regs[0] = i
+
+regs[8] = 0
+regs[24] = 8
+regs[0] = (i / 8)
+regs[8] = (i % 8)
+
+regs[0] = 11304
+regs[8] = memory[11304 + i % 8]
+
+
+regs[4] ^= regs[8] (memory[11244 + i] ^ memory[11304 + i % 8])
+
+regs[0] = 11312
+regs[0] += i
+memory[11312 + i] = regs[7] 
+
+1167: jmp 943
+
+
+
+
+
+-------------------
+1173: regs[0] = 0
+jmp 1198
+
+1188: regs[0] = regs[0] | 0xffffffff
+1198: pop regs[24]
+regs[16] = regs[20]
+pop regs[20]
+ret
+
+
+func_1223:
+push regs[20]
+regs[20] = regs[16]
+regs[16] = regs[16] - 1032
+memory[10188: 11208] = [TBD]
+regs[0] = memory[11232] (11304)
+memory[11216] = regs[0] (11304)
+
+regs[4] = memory[11228:11232] (0x12345678)
+regs[4] ^= 0xffffffff
+memory[11228:11232] = regs[4]
+
+(value = 0x12345678 ^ 0xffffffff)
+
+pasten_loop (6948):
+	regs[8] = memory[11236] (i, starts with 8)
+	memory[11212] = regs[8] (i)
+
+	regs[0] = memory[11236] (i)
+	regs[0] -= 1
+	memory[11236] = regs[0] (i-1)
+
+	if memory[11212] == 0: (check if i is 0)
+		jz after_life
+
+	regs[4] = memory[11216]  (the input offset, starts with 11304)
+	regs[8] = memory[regs[4]] (input[8 - i])
+	regs[8] ^= memory[11228]
+	regs[8] &= 0xff
+
+	regs[0] = memory[11228]
+	regs[0] >>= 8
+	regs[0] = regs[0] ^ memory[10188 + regs[8]]
+	memory[11228] = regs[0]
+
+	regs[4] = memory[11216] (the input offset, 11304)
+	regs[4] += 1
+	memory[11216] = regs[4]
+
+after_life (7208):
+regs[0] = memory[11228]
+regs[0] = regs[0] ^ 0xffffffff
+regs[16] = regs[20]
+pop regs[20]
+ret 
+

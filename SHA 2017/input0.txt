@@ -1,0 +1,12 @@
+cos
+system
+(S'cat flag'
+tR.
+flag
+flag
+flag
+flag
+flag
+flag
+flag
+flag
